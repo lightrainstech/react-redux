@@ -6,14 +6,26 @@ import * as serviceWorker from './serviceWorker'
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import appData from './reducers'
+import rootReducer from './reducers'
 
-const store = createStore(appData)
+const persistConfig = {
+    key: 'root',
+    storage
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+const store = createStore(persistedReducer)
+const persistor = persistStore(store)
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 )
