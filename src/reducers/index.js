@@ -1,7 +1,8 @@
-const initialState = {}
+import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
+import app from './app.js'
 
-const appData = (state = initialState, action) => {
-    return state
-}
-
-export default appData
+export default combineReducers({
+    app: app,
+    form: formReducer
+})
