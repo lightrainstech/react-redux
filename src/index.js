@@ -5,10 +5,11 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
+import thunk from 'redux-thunk'
 
 import rootReducer from './reducers'
 
@@ -18,7 +19,7 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-const store = createStore(persistedReducer)
+const store = createStore(persistedReducer, applyMiddleware(thunk))
 const persistor = persistStore(store)
 
 ReactDOM.render(

@@ -5,3 +5,4 @@
 -   [x] React Redux
 -   [x] [Redux Form](https://github.com/erikras/redux-form)
 -   [x] [Redux Persist](https://github.com/rt2zz/redux-persist)
+-   [x] [Redux Thunk](https://github.com/reduxjs/redux-thunk)
