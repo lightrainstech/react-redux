@@ -9,6 +9,8 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import thunk from 'redux-thunk'
+import axios from 'axios'
+import axiosMiddleware from 'redux-axios-middleware'
 
 import rootReducer from './reducers'
 import AppRoute from './AppRoute'
@@ -17,9 +19,16 @@ const persistConfig = {
     key: 'root',
     storage
 }
+const client = axios.create({
+    baseURL: 'http://localhost:8080/',
+    responseType: 'json'
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-const store = createStore(persistedReducer, applyMiddleware(thunk))
+const store = createStore(
+    persistedReducer,
+    applyMiddleware(thunk, axiosMiddleware(client))
+)
 const persistor = persistStore(store)
 
 ReactDOM.render(
